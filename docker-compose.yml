@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  telegram-bot:
+    build: .
+    environment:
+      BOT_TOKEN: 1234567890:ABCDEF
+      UPLOAD_SONGS: "true"
+    volumes:
+      - .:/usr/src/app
+      - ./file_ids.json:/usr/src/app/file_ids.json
+    restart: unless-stopped
