@@ -22,6 +22,11 @@ API_BASE_URL = "https://new.akarpov.ru/api/v1/music/song/"
 logger = logging.getLogger(__name__)
 
 
+if not os.path.exists("file_ids.json"):
+    with open("file_ids.json", "w") as f:
+        json.dump({}, f)
+
+
 def store_file_id(slug, file_id):
     file_id_storage[slug] = file_id
     with open("file_ids.json", "w") as f:
@@ -158,7 +163,7 @@ async def inline_query(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     InlineQueryResultCachedAudio(
                         id=song["slug"],
                         audio_file_id=file_id,
-                        caption=f"https://next.akarpov.ru/music/albums/{song['album']['slug']}#{song['slug']}"
+                        caption=f"https://next.akarpov.ru/music/albums/{song['album']['slug']}#{song['slug']}",
                     )
                 )
         # Store results in cache
